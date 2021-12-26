@@ -1,6 +1,8 @@
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.List;
 
 public class AnimalHelper {
     EntityManagerFactory emf;
@@ -26,6 +28,14 @@ public class AnimalHelper {
         em.getTransaction().begin();
         em.remove(animal);
         em.getTransaction().commit();
+    }
+
+    public List<Animal> getAllAnimals(){
+        em.getTransaction().begin();
+        Query query = em.createQuery("select animal from Animal animal");
+        List<Animal> animals = query.getResultList();
+        em.getTransaction().commit();
+        return animals;
     }
 }
 
